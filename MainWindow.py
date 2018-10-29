@@ -1,5 +1,6 @@
 from tkinter import Tk, Frame, Canvas
 from Ball import Ball
+from Obstacle import Obstacle
 
 
 class MainWindow(Frame):
@@ -18,8 +19,15 @@ class MainWindow(Frame):
         self.canvas.pack(fill="both", expand=True)
 
         # Create the ball and add it to the window
-        self.ball = Ball(self.canvas)
+        self.obs = Obstacle(self.canvas)
+        self.canvas.create_window(0, 0, window=self.obs)
+        
+        # Create the ball and add it to the window
+        self.ball = Ball(self.canvas, self)
         self.canvas.create_window(0, 75, window=self.ball)
+
+    def move_obstacles(self, delta):
+        self.obs.move_obstacle(delta)
 
 # Create root window and create the main window and start the main loop
 root = Tk()
