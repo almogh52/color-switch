@@ -1,4 +1,5 @@
 from tkinter import Canvas
+import random
 
 
 class Ball(Canvas):
@@ -9,6 +10,8 @@ class Ball(Canvas):
 
     BALL_TIMER_TICK = 7
 
+    BALL_COLORS = ["yellow", "purple", "blue", "white"]
+
     def __init__(self, parent=None, main=None):
         Canvas.__init__(self, parent, height=self.BALL_DIAMETER, width=self.BALL_DIAMETER, bg="black", bd=0, highlightthickness=0)
 
@@ -17,7 +20,7 @@ class Ball(Canvas):
         self.main = main
 
         # Create the ball
-        self.oval = self.create_oval(0, 0, self.BALL_DIAMETER, self.BALL_DIAMETER, fill="white")
+        self.oval = self.create_oval(0, 0, self.BALL_DIAMETER, self.BALL_DIAMETER, fill=random.choice(self.BALL_COLORS))
 
         # Initial y pos
         self.y = 250

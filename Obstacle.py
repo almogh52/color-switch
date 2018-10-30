@@ -15,3 +15,4 @@ class Obstacle(BaseObstacle):
 
         # Set the obstacle's initial pos
         self.place(x=self.parent.winfo_width() / 2 - self.width / 2, y=self.y)
+    
