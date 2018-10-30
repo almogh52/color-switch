@@ -28,6 +28,8 @@ class Ball():
         # Set the initial image as None since it is created on the onload event
         self.image = None
 
+        self.color = (255, 0, 130)
+
         # Initial speed is 0
         self.speed = 0
 
@@ -47,6 +49,13 @@ class Ball():
     def mouse_click(self, event):
         # When the mouse is clicked, reset the ball's speed to MAX_SPEED
         self.speed = self.MAX_SPEED
+
+    def check_ball_color(self, color):
+        for i in range(3):
+            if not (self.color[i] - 10 <= color[i] <= self.color[i] + 10):
+                return False
+
+        return True
 
     def update(self, event):
         # Change speed using acceleration

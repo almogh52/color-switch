@@ -9,6 +9,8 @@ class BaseObstacle():
         # Set default properties
         self.height = 0
         self.width = 0
+        self.tk_image = None
+        self.image = None
 
         # Bind to the onload event, to init the pos of the obstacle
         self.parent.bind("<Map>", self.init_pos, add="+")

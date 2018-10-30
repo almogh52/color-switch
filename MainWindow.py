@@ -1,36 +1,37 @@
-from tkinter import Tk, Frame, Canvas
-from Ball import Ball
-from Obstacle import Obstacle
+import pygame
 
+class MainWindow():
+    def __init__(self, width, height):
+        # Set the window size and pos
+        self.rect = pygame.Rect(0, 0, width, height)
 
-class MainWindow(Frame):
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
+        # Initialize the pygame library
+        pygame.init()
 
-        # Save the master window and change the title
-        self.master = master
-        self.master.title("Color Switch")
+        # Create the window
+        self.display = pygame.display.set_mode(self.rect.size)
 
-        # Set the frame to full the entire window
-        self.pack(fill="both", expand=True)
+    def run(self):
+        # Create a clock that will be used as a framerate monitor and limiter
+        clock = pygame.time.Clock()
 
-        # Create the main canvas and add it to
-        self.canvas = Canvas(self, bg="black")
-        self.canvas.pack(fill="both", expand=True)
-
-        # Create the ball and add it to the window
-        self.obs = Obstacle(self.canvas)
-        #self.canvas.create_window(0, 0, window=self.obs)
+        game_running = True
         
-        # Create the ball and add it to the window
-        self.ball = Ball(self.canvas, self)
+        # While the user didn't exit the game, continue main loop (frames)
+        while game_running:
+            # Handle events
+            for event in pygame.event.get():
+                # Quit Event
+                if event.type == pygame.QUIT:
+                    game_running = False
 
-    def move_obstacles(self, delta):
-        self.obs.move_obstacle(delta)
+            # Update the display each frame
+            pygame.display.update()
 
-# Create root window and create the main window and start the main loop
-root = Tk()
-root.geometry("500x500")
+            # Limit to 60 fps
+            clock.tick(60)
 
-app = MainWindow(master=root)
-app.mainloop()
+        # Quit app after the user choose to quit
+        pygame.quit()
+
+MainWindow(800, 600).run()

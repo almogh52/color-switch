@@ -35,4 +35,27 @@ class Obstacle(BaseObstacle):
         self.rotateAmount %= 360
 
         self.parent.after(10, self.rotate)
+
+    def is_obstacle_collide_with_ball(self, ball):
+        obstacle_coords = self.parent.coords(self.image)
+        ball_coords = self.parent.coords(ball.image)
+
+        #print(obstacle_coords)
+        #print(ball_coords)
+
+        collision_point = (ball_coords[0], ball_coords[1] - ball.BALL_DIAMETER // 2)
+
+        if collision_point[1] >= obstacle_coords[1] - self.height / 2 and collision_point[1] <= obstacle_coords[1] + self.height / 2:
+            current_image = self.pil_image.rotate(self.rotateAmount)
+            
+            collision_pixel = (int(collision_point[0] - (obstacle_coords[0] - self.width / 2)), int(collision_point[1] - (obstacle_coords[1] - self.height / 2)))
+            #print(collision_pixel)
+
+            if int(collision_pixel[1]) < self.height and current_image.getpixel(collision_pixel) != (0, 0, 0, 0):
+                color = current_image.getpixel(collision_pixel)
+                if ball.check_ball_color(color):
+                    print("DJDJD")
+
+        else:
+            return False
     
