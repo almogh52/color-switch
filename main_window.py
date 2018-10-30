@@ -1,4 +1,5 @@
 import pygame
+from ball import Ball
 
 class MainWindow():
     def __init__(self, width, height):
@@ -9,14 +10,17 @@ class MainWindow():
         pygame.init()
 
         # Create the window
-        self.display = pygame.display.set_mode(self.rect.size)
+        self.screen = pygame.display.set_mode(self.rect.size)
+
+        # Create the ball
+        self.ball = Ball(self.screen)
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
 
         game_running = True
-        
+
         # While the user didn't exit the game, continue main loop (frames)
         while game_running:
             # Handle events
@@ -24,6 +28,13 @@ class MainWindow():
                 # Quit Event
                 if event.type == pygame.QUIT:
                     game_running = False
+                
+                # Key down event
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.ball.clicked()
+
+            self.ball.update()
 
             # Update the display each frame
             pygame.display.update()
