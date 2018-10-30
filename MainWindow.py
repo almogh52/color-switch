@@ -20,11 +20,10 @@ class MainWindow(Frame):
 
         # Create the ball and add it to the window
         self.obs = Obstacle(self.canvas)
-        self.canvas.create_window(0, 0, window=self.obs)
+        #self.canvas.create_window(0, 0, window=self.obs)
         
         # Create the ball and add it to the window
         self.ball = Ball(self.canvas, self)
-        self.canvas.create_window(0, 75, window=self.ball)
 
     def move_obstacles(self, delta):
         self.obs.move_obstacle(delta)

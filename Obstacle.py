@@ -1,4 +1,5 @@
-from tkinter import Canvas
+from PIL import Image, ImageTk
+import os
 from BaseObstacle import BaseObstacle
 
 class Obstacle(BaseObstacle):
@@ -6,13 +7,12 @@ class Obstacle(BaseObstacle):
         BaseObstacle.__init__(self, parent)
 
         # Set this obstacle properties
-        self.width = 100
-        self.height = 100
-        self.y = -self.height
+        self.width = 200
+        self.height = 200
 
-        # Init the canvas super class
-        Canvas.__init__(self, parent, height=self.height, width=self.width, bg="white", bd=0, highlightthickness=0)
+        # Open the obstacle image
+        self.pil_image = Image.open(os.path.dirname(os.path.abspath(__file__)) + r"/Resources/Obstacle.png")
+        self.pil_image = self.pil_image.resize((200, 200), Image.BICUBIC)
 
-        # Set the obstacle's initial pos
-        self.place(x=self.parent.winfo_width() / 2 - self.width / 2, y=self.y)
+        self.tk_image = ImageTk.PhotoImage(self.pil_image)
     

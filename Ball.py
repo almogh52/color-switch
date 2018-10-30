@@ -1,8 +1,11 @@
-from tkinter import Canvas
+from tkinter import Frame
+from PIL import ImageTk, Image
 import random
+import os
 
-
-class Ball(Canvas):
+class Ball():
+    # Consts
+    BALL_BORDER = 5
     BALL_DIAMETER = 25
 
     BALL_ACCELERATION = -0.10
@@ -10,29 +13,36 @@ class Ball(Canvas):
 
     BALL_TIMER_TICK = 7
 
-    BALL_COLORS = ["yellow", "purple", "blue", "white"]
-
     def __init__(self, parent=None, main=None):
-        Canvas.__init__(self, parent, height=self.BALL_DIAMETER, width=self.BALL_DIAMETER, bg="black", bd=0, highlightthickness=0)
-
         # Save the parent and the main window
         self.parent = parent
         self.main = main
 
-        # Create the ball
-        self.oval = self.create_oval(0, 0, self.BALL_DIAMETER, self.BALL_DIAMETER, fill=random.choice(self.BALL_COLORS))
+        # Open the image of the ball and resize to it's small size
+        image = Image.open(os.path.dirname(os.path.abspath(__file__)) + r"/Resources/Ball/Pink.png")
+        image = image.resize((self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER), Image.ANTIALIAS)
 
-        # Initial y pos
-        self.y = 250
+        # Create a tkinter image from the PIL image
+        self.image_pil = ImageTk.PhotoImage(image=image)
+
+        # Set the initial image as None since it is created on the onload event
+        self.image = None
 
         # Initial speed is 0
         self.speed = 0
+
+        # Bind to the onload event, to init the pos of the obstacle
+        self.parent.bind("<Map>", self.init_pos, add="+")
 
         # Start the player's update when the window is loaded
         self.parent.bind("<Map>", self.update, add="+")
 
         # Bind to the event 
         self.parent.bind("<Button-1>", self.mouse_click)
+
+    def init_pos(self, event):
+        # Create the ball as an image in the parent canvas in the middle of the screen
+        self.image = self.parent.create_image(self.parent.winfo_width() / 2, self.parent.winfo_height() * 2 / 3, image=self.image_pil)
 
     def mouse_click(self, event):
         # When the mouse is clicked, reset the ball's speed to MAX_SPEED
@@ -42,19 +52,14 @@ class Ball(Canvas):
         # Change speed using acceleration
         self.speed = self.speed + self.BALL_ACCELERATION
 
-        print(self.speed)
-
         # If the new y pos is smaller than the middle of the screen (if the ball need to pass the middle), move the obstacles
-        if self.y - self.speed <= self.parent.winfo_height() / 2 - self.BALL_DIAMETER / 2:
+        if self.parent.coords(self.image)[1] - self.speed <= self.parent.winfo_height() / 2 - self.BALL_DIAMETER / 2:
             # Move all obstacles
             self.main.move_obstacles(self.speed)
         else:
-            # Set ball's y pos using the speed
-            self.y -= self.speed
-
-        # Place the ball in it's x and y
-        self.place(x=self.parent.winfo_width() / 2 - self.BALL_DIAMETER / 2, y=self.y)
+            # Move the ball in the y axis by it's speed
+            self.parent.move(self.image, 0, -self.speed)
 
         # Schedule this to happen again after 10ms
-        self.after(self.BALL_TIMER_TICK, self.update, event)
+        self.parent.after(self.BALL_TIMER_TICK, self.update, event)
 
