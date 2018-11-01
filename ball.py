@@ -23,6 +23,7 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.image.load("Ball.png")
         self.image = pygame.transform.scale(self.image, (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
 
+        # Start the player's speed as 0
         self.speed = 0
 
     def clicked(self):

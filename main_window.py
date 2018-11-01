@@ -1,5 +1,6 @@
 import pygame
 from ball import Ball
+from obstacle import Obstacle
 
 class MainWindow():
     def __init__(self, width, height):
@@ -14,6 +15,8 @@ class MainWindow():
 
         # Create the ball
         self.ball = Ball(self.screen)
+
+        self.obs = Obstacle(self.screen)
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
@@ -35,6 +38,7 @@ class MainWindow():
                         self.ball.clicked()
 
             self.ball.update()
+            self.obs.update()
 
             # Update the display each frame
             pygame.display.update()
