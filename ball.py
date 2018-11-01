@@ -34,9 +34,6 @@ class Ball(pygame.sprite.Sprite):
         # Change speed according to the acceleration
         self.speed -= self.ACCELERATION
 
-        # Draw on the ball in order to remove it
-        self.screen.blit(pygame.Surface((self.width, self.height)), self.rect)
-
         # Change the y pos using the speed
         self.rect.y -= self.speed
 

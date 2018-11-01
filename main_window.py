@@ -26,6 +26,9 @@ class MainWindow():
 
         # While the user didn't exit the game, continue main loop (frames)
         while game_running:
+            # Clear the screen by filling it with black color
+            self.screen.fill((0, 0, 0))
+
             # Handle events
             for event in pygame.event.get():
                 # Quit Event
@@ -37,8 +40,8 @@ class MainWindow():
                     if event.key == pygame.K_SPACE:
                         self.ball.clicked()
 
-            self.ball.update()
             self.obs.update()
+            self.ball.update()
 
             # Update the display each frame
             pygame.display.update()
