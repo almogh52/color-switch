@@ -4,6 +4,7 @@ from PIL import Image
 
 class Obstacle(pygame.sprite.Sprite):
     OBSTACLE_SIZE = 200
+    ROTATE_DELTA = 1.5
 
     def __init__(self, screen):
         # Call the super constructor
@@ -21,6 +22,15 @@ class Obstacle(pygame.sprite.Sprite):
         # Load the image and resize it to the correct size
         self.image = utils.load_and_resize_image("Obstacle.png", (200, 200))
 
+        # Set the rotation amount as 0
+        self.rotateAmount = 0
+
     def update(self):
-        # Draw the image onto the screen
-        self.screen.blit(self.image, self.rect)
+        # Rotate the original image by the rotate amount
+        image = pygame.transform.rotate(self.image, self.rotateAmount)
+
+        # Increase the rotate amount for the next rotation
+        self.rotateAmount = (self.rotateAmount + self.ROTATE_DELTA) % 360
+
+        # Draw the image onto the screen, the rect being used is the image rect with the center of the sprite
+        self.screen.blit(image, image.get_rect(center=self.rect.center))
