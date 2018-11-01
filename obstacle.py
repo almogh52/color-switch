@@ -25,12 +25,15 @@ class Obstacle(pygame.sprite.Sprite):
         # Set the rotation amount as 0
         self.rotateAmount = 0
 
-    def update(self):
+    def update(self, delta):
         # Rotate the original image by the rotate amount
         image = pygame.transform.rotate(self.image, self.rotateAmount)
 
         # Increase the rotate amount for the next rotation
         self.rotateAmount = (self.rotateAmount + self.ROTATE_DELTA) % 360
+
+        # Apply y pos delta to the image
+        self.rect.y = self.rect.y + delta
 
         # Draw the image onto the screen, the rect being used is the image rect with the center of the sprite
         self.screen.blit(image, image.get_rect(center=self.rect.center))

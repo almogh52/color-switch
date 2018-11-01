@@ -40,8 +40,11 @@ class MainWindow():
                     if event.key == pygame.K_SPACE:
                         self.ball.clicked()
 
-            self.obs.update()
-            self.ball.update()
+            # Update the ball and get the obstacle y pos delta from it
+            obstacle_delta : float = self.ball.update()
+
+            # Update the obstacle using the given obstacle delta
+            self.obs.update(obstacle_delta)
 
             # Update the display each frame
             pygame.display.update()

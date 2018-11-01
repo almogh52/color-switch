@@ -31,11 +31,20 @@ class Ball(pygame.sprite.Sprite):
         self.speed = self.MAX_SPEED
 
     def update(self):
+        obstacle_delta = 0
+
         # Change speed according to the acceleration
         self.speed -= self.ACCELERATION
 
-        # Change the y pos using the speed
-        self.rect.y -= self.speed
+        # If the new y pos is smaller than the middle of the screen (if the ball need to pass the middle), set the obstacle delta as the speed
+        if self.rect.y - self.speed <= self.screen.get_rect().height / 2 - self.height / 2:
+            # Move the obstacles by the current speed
+            obstacle_delta = self.speed
+        else:
+            # Change the y pos using the speed
+            self.rect.y -= self.speed
 
         # Draw the image on the screen
         self.screen.blit(self.image, self.rect)
+
+        return obstacle_delta
