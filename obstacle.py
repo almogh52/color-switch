@@ -17,7 +17,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.width = self.height = self.OBSTACLE_SIZE
 
         # Create the sprite's rect and set the obstacle in the middle of the screen
-        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, screen.get_rect().height * 2 / 3, self.width, self.height)
+        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, -self.height, self.width, self.height)
 
         # Load the image and resize it to the correct size
         self.image = utils.load_and_resize_image("Obstacle.png", (self.width, self.height))
