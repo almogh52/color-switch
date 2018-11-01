@@ -20,7 +20,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, screen.get_rect().height * 2 / 3, self.width, self.height)
 
         # Load the image and resize it to the correct size
-        self.image = utils.load_and_resize_image("Obstacle.png", (200, 200))
+        self.image = utils.load_and_resize_image("Obstacle.png", (self.width, self.height))
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
