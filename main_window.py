@@ -18,6 +18,19 @@ class MainWindow():
 
         self.obs = Obstacle(self.screen)
 
+    def draw_fps(self, clock):
+        # Get the current fps from the clock
+        fps = int(clock.get_fps())
+
+        # If the fps isn't 0, draw it onto the screen
+        if fps != 0:
+            # Get default font renderer
+            my_font = pygame.font.Font(None, 50)
+
+            # Render the fps label and print it in the top left of the screen
+            fps_label = my_font.render(str(fps), True, (255,255,255))
+            self.screen.blit(fps_label, (0, 0))
+
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
@@ -45,6 +58,9 @@ class MainWindow():
 
             # Update the obstacle using the given obstacle delta
             self.obs.update(obstacle_delta)
+
+            # Draw current fps
+            self.draw_fps(clock)
 
             # Update the display each frame
             pygame.display.update()
