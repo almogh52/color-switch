@@ -23,6 +23,8 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.image.load("Ball.png")
         self.image = pygame.transform.scale(self.image, (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
 
+        self.color = (0, 245, 255, 255)
+
         # Start the player's speed as 0
         self.speed = 0
 
