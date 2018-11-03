@@ -2,6 +2,7 @@ import pygame
 from ball import Ball
 from map_sprites import MapSprites
 from obstacle import Obstacle
+from color_switcher import ColorSwitcher
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
@@ -24,6 +25,9 @@ class MainWindow():
         
         # Add the first obstacle
         self.map_sprites.add(Obstacle(self.screen))
+
+        # Add the first color switcher
+        self.map_sprites.add(ColorSwitcher(self.screen))
 
     def draw_fps(self, clock):
         # Get the current fps from the clock
