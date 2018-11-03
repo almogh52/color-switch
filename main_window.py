@@ -7,6 +7,7 @@ from base.base_obstacle import BaseObstacle
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
+    MAX_FPS = 60
 
     def __init__(self, width, height):
         # Set the window size and pos
@@ -98,7 +99,7 @@ class MainWindow():
             pygame.display.update()
 
             # Limit to 60 fps
-            clock.tick(60)
+            clock.tick(self.MAX_FPS)
 
         # Quit app after the user choose to quit
         pygame.quit()
