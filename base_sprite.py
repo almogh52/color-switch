@@ -21,6 +21,10 @@ class BaseSprite(pygame.sprite.Sprite):
             # Load the image and resize it to the correct size
             self.image = utils.load_and_resize_image(image, (self.width, self.height))
 
+    def check_collsion_with_ball(self, ball):
+        # Try to get the overlap point, if succeeded (point isn't None), return true 
+        return utils.get_overlap_point(self.image, self.rect, ball.image, ball.rect) != None
+
     def update(self, delta):
         # Apply y pos delta to the image
         self.rect.y = self.rect.y + delta
