@@ -41,7 +41,7 @@ class Obstacle(BaseSprite):
 
     def update(self, delta):
         # Rotate the original image by the rotate amount
-        image = pygame.transform.rotate(self.image, self.rotateAmount)
+        image = pygame.transform.rotozoom(self.image, self.rotateAmount, 1)
 
         # Increase the rotate amount for the next rotation
         self.rotateAmount = (self.rotateAmount + self.ROTATE_DELTA) % 360
