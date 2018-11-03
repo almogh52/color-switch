@@ -29,3 +29,9 @@ def get_overlap_point(surface1, rect1, surface2, rect2):
         real_overlap_point = None
 
     return real_overlap_point
+
+def color_is_black(color):
+    # Check if the color is in the low range so it's black
+    return (color.r in range(0, 10) and
+            color.g in range(0, 10) and
+            color.b in range(0, 10))
