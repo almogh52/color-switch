@@ -59,6 +59,10 @@ class MainWindow():
             # Update the obstacle using the given obstacle delta
             self.obs.update(obstacle_delta)
 
+            # Check if the ball collides with the obstacle, if it is print dead
+            if self.obs.check_collsion_with_ball(self.ball):
+                print("Dead!")
+
             # Draw current fps
             self.draw_fps(clock)
 
