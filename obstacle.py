@@ -1,26 +1,15 @@
 import pygame
 import utils
 from PIL import Image
+from base_sprite import BaseSprite
 
-class Obstacle(pygame.sprite.Sprite):
+class Obstacle(BaseSprite):
     OBSTACLE_SIZE = 200
     ROTATE_DELTA = 1.5
 
     def __init__(self, screen):
-        # Call the super constructor
-        pygame.sprite.Sprite.__init__(self)
-
-        # Save the screen as a field
-        self.screen = screen
-
-        # Set the height and the width by the obstacle size
-        self.width = self.height = self.OBSTACLE_SIZE
-
-        # Create the sprite's rect and set the obstacle in the middle of the screen
-        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, -self.height, self.width, self.height)
-
-        # Load the image and resize it to the correct size
-        self.image = utils.load_and_resize_image("Resources/Obstacle.png", (self.width, self.height))
+        # Call the super constructor with the screen, the obstacle's image and the size
+        BaseSprite.__init__(self, screen, "Resources/Obstacle.png", (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE))
 
         # Set the rotation amount as 0
         self.rotateAmount = 0

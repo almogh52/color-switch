@@ -1,7 +1,8 @@
 import pygame
 import utils
+from base_sprite import BaseSprite
 
-class Ball(pygame.sprite.Sprite):
+class Ball(BaseSprite):
     BALL_BORDER = 5
     BALL_DIAMETER = 25
 
@@ -9,16 +10,11 @@ class Ball(pygame.sprite.Sprite):
     ACCELERATION = 0.35
 
     def __init__(self, screen):
-        # Call the super constructor
-        pygame.sprite.Sprite.__init__(self)
+        # Call the super constructor with the screen, no image and the size of the ball
+        BaseSprite.__init__(self, screen, None, (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
 
-        self.screen = screen
-
-        # The width and height is the diameter of the ball + it's border
-        self.width = self.height = self.BALL_DIAMETER + self.BALL_BORDER
-
-        # Set the ball's rect, x pos in the middle of the screen, y pos in the lower part of the screen
-        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, screen.get_rect().height * 2 / 3, self.width, self.width)
+        # Set the initial y pos of the ball
+        self.rect.y  = screen.get_rect().height * 2 / 3
 
         # Start the player's speed as 0
         self.speed = 0
