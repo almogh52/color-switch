@@ -1,8 +1,9 @@
 import pygame
 from ball import Ball
 from map_sprites import MapSprites
-from obstacles.circle_obstacle import CircleObstacle
+from obstacles.plus_obstacle import PlusObstacle
 from color_switcher import ColorSwitcher
+from base.base_obstacle import BaseObstacle
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
@@ -24,7 +25,7 @@ class MainWindow():
         self.map_sprites = MapSprites()
         
         # Add the first obstacle
-        self.map_sprites.add(CircleObstacle(self.screen))
+        self.map_sprites.add(PlusObstacle(self.screen))
 
         # Add the first color switcher
         self.map_sprites.add(ColorSwitcher(self.screen))
@@ -78,7 +79,8 @@ class MainWindow():
             # Handle each collided sprite
             for sprite in collided_sprites:
                 # Obstacle Handler
-                if type(sprite) == CircleObstacle:
+                # If the sprite is a subclass of the base obstacle, it means the ball should explode
+                if issubclass(type(sprite), BaseObstacle):
                     print("Dead")
 
                 # Color Switcher Handler

@@ -2,18 +2,22 @@ import pygame
 import utils
 from base.base_obstacle import BaseObstacle
 from base.base_sprite import BaseSprite
+import random
 
-class CircleObstacle(BaseObstacle):
+class PlusObstacle(BaseObstacle):
     OBSTACLE_SIZE = 260
     ROTATE_DELTA = 1.5
+    OFFSET_FROM_MIDDLE = 95
 
     def __init__(self, screen):
         # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
         BaseSprite.__init__(self, 
                             screen, 
-                            "resources/obstacles/circle.png", 
+                            "resources/obstacles/plus.png", 
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
                             -self.OBSTACLE_SIZE)
+                            
+        self.rect.x += OFFSET_FROM_MIDDLE
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
