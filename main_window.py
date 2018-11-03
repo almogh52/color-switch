@@ -1,7 +1,7 @@
 import pygame
 from ball import Ball
 from map_sprites import MapSprites
-from obstacles.plus_obstacle import PlusObstacle
+from obstacles.circle_obstacle import CircleObstacle
 from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
 
@@ -25,7 +25,7 @@ class MainWindow():
         self.map_sprites = MapSprites()
         
         # Add the first obstacle
-        self.map_sprites.add(PlusObstacle(self.screen))
+        self.map_sprites.add(CircleObstacle(self.screen))
 
         # Add the first color switcher
         self.map_sprites.add(ColorSwitcher(self.screen))

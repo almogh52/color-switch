@@ -2,7 +2,7 @@ import pygame
 import utils
 from base.base_obstacle import BaseObstacle
 from base.base_sprite import BaseSprite
-import random
+import utils
 
 class PlusObstacle(BaseObstacle):
     OBSTACLE_SIZE = 260
@@ -17,7 +17,17 @@ class PlusObstacle(BaseObstacle):
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
                             -self.OBSTACLE_SIZE)
                             
-        self.rect.x += self.OFFSET_FROM_MIDDLE
+        # Get random bool to pick the obstacle's side of the screen
+        if utils.random_bool():
+            self.rect.x += self.OFFSET_FROM_MIDDLE
+        else:
+            self.rect.x -= self.OFFSET_FROM_MIDDLE
+
+        # Get random bool to pick the rotation direction
+        if utils.random_bool():
+            self.angle_delta = self.ROTATE_DELTA
+        else:
+            self.angle_delta = -self.ROTATE_DELTA
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
@@ -34,7 +44,7 @@ class PlusObstacle(BaseObstacle):
         image = pygame.transform.rotozoom(self.image, self.rotateAmount, 1)
 
         # Increase the rotate amount for the next rotation
-        self.rotateAmount = (self.rotateAmount + self.ROTATE_DELTA) % 360
+        self.rotateAmount = (self.rotateAmount + self.angle_delta) % 360
 
         # Apply y pos delta to the image
         self.rect.y = self.rect.y + delta

@@ -14,6 +14,12 @@ class CircleObstacle(BaseObstacle):
                             "resources/obstacles/circle.png", 
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
                             -self.OBSTACLE_SIZE)
+        
+        # Get random bool to pick the rotation direction
+        if utils.random_bool():
+            self.angle_delta = self.ROTATE_DELTA
+        else:
+            self.angle_delta = -self.ROTATE_DELTA
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
@@ -30,7 +36,7 @@ class CircleObstacle(BaseObstacle):
         image = pygame.transform.rotozoom(self.image, self.rotateAmount, 1)
 
         # Increase the rotate amount for the next rotation
-        self.rotateAmount = (self.rotateAmount + self.ROTATE_DELTA) % 360
+        self.rotateAmount = (self.rotateAmount + self.angle_delta) % 360
 
         # Apply y pos delta to the image
         self.rect.y = self.rect.y + delta
