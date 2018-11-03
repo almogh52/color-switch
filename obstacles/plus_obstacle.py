@@ -9,13 +9,13 @@ class PlusObstacle(BaseObstacle):
     ROTATE_DELTA = 1.5
     OFFSET_FROM_MIDDLE = 95
 
-    def __init__(self, screen):
+    def __init__(self, screen, y_pos):
         # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
         BaseSprite.__init__(self, 
                             screen, 
                             "resources/obstacles/plus.png", 
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
-                            -self.OBSTACLE_SIZE)
+                            y_pos)
                             
         # Get random bool to pick the obstacle's side of the screen
         if utils.random_bool():

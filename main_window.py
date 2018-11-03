@@ -2,12 +2,14 @@ import pygame
 from ball import Ball
 from map_sprites import MapSprites
 from obstacles.circle_obstacle import CircleObstacle
+from obstacles.plus_obstacle import PlusObstacle
 from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
     MAX_FPS = 60
+    DISTANCE_BETWEEN_SPRITES = 180
 
     def __init__(self, width, height):
         # Set the window size and pos
@@ -26,10 +28,13 @@ class MainWindow():
         self.map_sprites = MapSprites()
         
         # Add the first obstacle
-        self.map_sprites.add(CircleObstacle(self.screen))
+        self.map_sprites.add(CircleObstacle(self.screen, self.screen.get_rect().height * 0.5 / 8))
+
+        # Save the last sprite on the map
+        self.last_sprite = ColorSwitcher(self.screen, self.screen.get_rect().height * 0.5 / 8 - self.DISTANCE_BETWEEN_SPRITES)
 
         # Add the first color switcher
-        self.map_sprites.add(ColorSwitcher(self.screen))
+        self.map_sprites.add(self.last_sprite)
 
     def draw_fps(self, clock):
         # Get the current fps from the clock
@@ -67,6 +72,13 @@ class MainWindow():
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.ball.clicked()
+
+            print(self.last_sprite.rect.y)
+
+            # If the last sprite is almost entring screen, add a new sprite
+            if -100 <= self.last_sprite.rect.y <= 0:
+                self.last_sprite = PlusObstacle(self.screen, self.map_sprites.sprites()[-1].rect.y - self.DISTANCE_BETWEEN_SPRITES - 200)
+                self.map_sprites.add(self.last_sprite)
 
             # Update the ball and get the map pos delta from it
             map_delta : float = self.ball.update()

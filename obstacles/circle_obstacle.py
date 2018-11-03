@@ -7,13 +7,13 @@ class CircleObstacle(BaseObstacle):
     OBSTACLE_SIZE = 260
     ROTATE_DELTA = 1.5
 
-    def __init__(self, screen):
+    def __init__(self, screen, y_pos):
         # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
         BaseSprite.__init__(self, 
                             screen, 
                             "resources/obstacles/circle.png", 
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
-                            -self.OBSTACLE_SIZE)
+                            y_pos)
         
         # Get random bool to pick the rotation direction
         if utils.random_bool():
