@@ -51,7 +51,8 @@ def compare_colors(color1, color2):
     color1_hue = get_hue_from_color(color1)
     color2_hue = get_hue_from_color(color2)
 
-    return color1_hue == color2_hue
+    # Check if the color 1 hue is in the range of the color 2 hue
+    return color1_hue in range(color2_hue - 2, color2_hue + 2)
 
 def get_dominant_color_from_image(path):
     # Load the image
