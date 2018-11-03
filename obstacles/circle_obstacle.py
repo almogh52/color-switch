@@ -11,7 +11,7 @@ class CircleObstacle(BaseObstacle):
         # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
         BaseSprite.__init__(self, 
                             screen, 
-                            "Resources/Obstacle.png", 
+                            "Resources/Obstacles/Circle.png", 
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
                             -self.OBSTACLE_SIZE)
 
