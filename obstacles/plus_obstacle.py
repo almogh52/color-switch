@@ -17,7 +17,7 @@ class PlusObstacle(BaseObstacle):
                             (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
                             -self.OBSTACLE_SIZE)
                             
-        self.rect.x += OFFSET_FROM_MIDDLE
+        self.rect.x += self.OFFSET_FROM_MIDDLE
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
