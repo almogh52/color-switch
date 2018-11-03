@@ -1,5 +1,6 @@
 from PIL import Image
 import pygame
+import colorsys
 
 def load_and_resize_image(path, size):
     # Load the image
@@ -35,3 +36,19 @@ def color_is_black(color):
     return (color[0] in range(0, 10) and
             color[1] in range(0, 10) and
             color[2] in range(0, 10))
+
+def get_hue_from_color(color):
+    # Convert the color to an hsv color to get it's hue
+    hsv_color = colorsys.rgb_to_hsv(color[0] / 255,
+                                    color[1] / 255,
+                                    color[2] / 255)
+
+    # Get the actual hue from the hsv color
+    return int(hsv_color[0] * 360)
+
+def compare_colors(color1, color2):
+    # Get the hue values of both colors
+    color1_hue = get_hue_from_color(color1)
+    color2_hue = get_hue_from_color(color2)
+
+    return color1_hue == color2_hue
