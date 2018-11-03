@@ -19,12 +19,22 @@ class Ball(BaseSprite):
         # Start the player's speed as 0
         self.speed = 0
 
+        # Set initial ball's image file as None to be used in the switch ball color
+        self.image_file = None
+
         # Set a random color for the ball
         self.switch_ball_color()
 
     def switch_ball_color(self):
-        # Get a random ball image from the ball images folder
-        self.image_file = utils.random_file_from_folder("Resources/Ball")
+        image_file_path = utils.random_file_from_folder("Resources/Ball")
+
+        # While the new image file is the same as the previous image, request a new one
+        while image_file_path == self.image_file:
+            # Get a random ball image from the ball images folder
+            image_file_path = utils.random_file_from_folder("Resources/Ball")
+
+        # Set the image file as the new image file path
+        self.image_file = image_file_path
 
         # Load the ball image and resize it to it's size by the diameter + border
         self.image = utils.load_and_resize_image(self.image_file, (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
