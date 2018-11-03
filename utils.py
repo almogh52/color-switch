@@ -1,4 +1,5 @@
 from PIL import Image
+import os, random
 import pygame
 import colorsys
 
@@ -64,3 +65,10 @@ def get_dominant_color_from_image(path):
 
     # Return the most used color
     return image_colors[0][1]
+
+def random_file_from_folder(path):
+    # Get the list of the files from the folder path
+    files = os.listdir(path)
+
+    # Return a random file from the folder
+    return f"{path}/{random.choice(files)}"
