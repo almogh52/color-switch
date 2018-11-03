@@ -25,7 +25,7 @@ class MainWindow():
         # If the fps isn't 0, draw it onto the screen
         if fps != 0:
             # Get default font renderer
-            my_font = pygame.font.Font(None, 50)
+            my_font = pygame.font.Font(None, 30)
 
             # Render the fps label and print it in the top left of the screen
             fps_label = my_font.render(str(fps), True, (255,255,255))
