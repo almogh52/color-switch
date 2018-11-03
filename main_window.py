@@ -22,14 +22,16 @@ class MainWindow():
         # Get the current fps from the clock
         fps = int(clock.get_fps())
 
-        # If the fps isn't 0, draw it onto the screen
-        if fps != 0:
-            # Get default font renderer
-            my_font = pygame.font.Font(None, 30)
+        # If the fps is 0, set it as calculating
+        if fps == 0:
+            fps = "Calculating"
 
-            # Render the fps label and print it in the top left of the screen
-            fps_label = my_font.render(str(fps), True, (255,255,255))
-            self.screen.blit(fps_label, (0, 0))
+        # Get default font renderer
+        my_font = pygame.font.Font(None, 30)
+
+        # Render the fps label and print it in the top left of the screen
+        fps_label = my_font.render(f"FPS: {fps}", True, (255,255,255))
+        self.screen.blit(fps_label, (2, 2))
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
