@@ -4,7 +4,7 @@ from PIL import Image
 from base_sprite import BaseSprite
 
 class Obstacle(BaseSprite):
-    OBSTACLE_SIZE = 200
+    OBSTACLE_SIZE = 260
     ROTATE_DELTA = 1.5
 
     def __init__(self, screen):
