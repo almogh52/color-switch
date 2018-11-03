@@ -26,12 +26,12 @@ class Ball(BaseSprite):
         self.switch_ball_color()
 
     def switch_ball_color(self):
-        image_file_path = utils.random_file_from_folder("Resources/Ball")
+        image_file_path = utils.random_file_from_folder("resources/ball")
 
         # While the new image file is the same as the previous image, request a new one
         while image_file_path == self.image_file:
             # Get a random ball image from the ball images folder
-            image_file_path = utils.random_file_from_folder("Resources/Ball")
+            image_file_path = utils.random_file_from_folder("resources/ball")
 
         # Set the image file as the new image file path
         self.image_file = image_file_path

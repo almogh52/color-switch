@@ -8,6 +8,6 @@ class ColorSwitcher(BaseSprite):
         # Call the super constructor with the screen, the image and the size of the switcher
         BaseSprite.__init__(self, 
                             screen, 
-                            "Resources/Switcher.png", 
+                            "resources/switcher.png", 
                             (self.SWITCHER_DIAMETER + self.SWITCHER_BORDER, self.SWITCHER_DIAMETER + self.SWITCHER_BORDER),
                             -350)
