@@ -1,7 +1,7 @@
 import pygame
 from ball import Ball
 from map_sprites import MapSprites
-from obstacle import Obstacle
+from obstacles.circle_obstacle import CircleObstacle
 from color_switcher import ColorSwitcher
 
 class MainWindow():
@@ -24,7 +24,7 @@ class MainWindow():
         self.map_sprites = MapSprites()
         
         # Add the first obstacle
-        self.map_sprites.add(Obstacle(self.screen))
+        self.map_sprites.add(CircleObstacle(self.screen))
 
         # Add the first color switcher
         self.map_sprites.add(ColorSwitcher(self.screen))
@@ -78,7 +78,7 @@ class MainWindow():
             # Handle each collided sprite
             for sprite in collided_sprites:
                 # Obstacle Handler
-                if type(sprite) == Obstacle:
+                if type(sprite) == CircleObstacle:
                     print("Dead")
 
                 # Color Switcher Handler

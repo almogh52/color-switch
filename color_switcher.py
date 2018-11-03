@@ -1,4 +1,4 @@
-from base_sprite import BaseSprite
+from base.base_sprite import BaseSprite
 
 class ColorSwitcher(BaseSprite):
     SWITCHER_BORDER = 5

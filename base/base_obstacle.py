@@ -1,4 +1,4 @@
-from base_sprite import BaseSprite
+from base.base_sprite import BaseSprite
 import utils
 
 class BaseObstacle(BaseSprite):

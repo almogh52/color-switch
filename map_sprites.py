@@ -1,5 +1,4 @@
 import pygame
-from obstacle import Obstacle
 
 class MapSprites(pygame.sprite.Group):
     def check_collsion_with_ball(self, ball):

@@ -1,9 +1,9 @@
 import pygame
 import utils
-from base_obstacle import BaseObstacle
-from base_sprite import BaseSprite
+from base.base_obstacle import BaseObstacle
+from base.base_sprite import BaseSprite
 
-class Obstacle(BaseObstacle):
+class CircleObstacle(BaseObstacle):
     OBSTACLE_SIZE = 260
     ROTATE_DELTA = 1.5
 

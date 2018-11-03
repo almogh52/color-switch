@@ -1,5 +1,5 @@
 import utils
-from base_sprite import BaseSprite
+from base.base_sprite import BaseSprite
 
 class Ball(BaseSprite):
     BALL_BORDER = 5
