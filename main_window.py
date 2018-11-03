@@ -3,6 +3,8 @@ from ball import Ball
 from obstacle import Obstacle
 
 class MainWindow():
+    BACKGROUND_COLOR = (35, 35, 35)
+
     def __init__(self, width, height):
         # Set the window size and pos
         self.rect = pygame.Rect(0, 0, width, height)
@@ -42,7 +44,7 @@ class MainWindow():
         # While the user didn't exit the game, continue main loop (frames)
         while game_running:
             # Clear the screen by filling it with black color
-            self.screen.fill((0, 0, 0))
+            self.screen.fill(self.BACKGROUND_COLOR)
 
             # Handle events
             for event in pygame.event.get():

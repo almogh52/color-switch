@@ -33,10 +33,13 @@ def get_overlap_point(surface1, rect1, surface2, rect2):
     return real_overlap_point
 
 def color_is_black(color):
-    # Check if the color is in the low range so it's black
-    return (color[0] in range(0, 10) and
-            color[1] in range(0, 10) and
-            color[2] in range(0, 10))
+    # Convert the color to an hsv color to get it's saturation
+    hsv_color = colorsys.rgb_to_hsv(color[0] / 255,
+                                    color[1] / 255,
+                                    color[2] / 255)
+
+    # Check if the saturation of the color is low so it's black
+    return hsv_color[1] in range(5)
 
 def get_hue_from_color(color):
     # Convert the color to an hsv color to get it's hue
