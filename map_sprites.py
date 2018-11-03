@@ -3,13 +3,15 @@ from obstacle import Obstacle
 
 class MapSprites(pygame.sprite.Group):
     def check_collsion_with_ball(self, ball):
+        # Get the list of sprites
         sprites = self.sprites()
-        collides = False
 
-        # Call the collision function in all obstacles and do an or bitwise with the collides boolean
+        collided_sprites = []
+
+        # Call the collision function in all sprites and add them to the collided sprites list if they collide with the ball
         for sprite in sprites:
-            # If the sprite is an obstacle, check if it collides with the ball
-            if type(sprite) is Obstacle:
-                collides |= sprite.check_collsion_with_ball(ball)
+            # If the sprite collides with the ball, add it to the collided sprites list
+            if sprite.check_collsion_with_ball(ball):
+                collided_sprites.append(sprite)
 
-        return collides
+        return collided_sprites

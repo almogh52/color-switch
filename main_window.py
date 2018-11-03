@@ -72,9 +72,22 @@ class MainWindow():
             # Update the obstacle using the given obstacle delta
             self.map_sprites.update(map_delta)
 
-            # Check if the ball collides with the obstacle, if it is print dead
-            if self.map_sprites.check_collsion_with_ball(self.ball):
-                print("Dead!")
+            # Check for all sprites on the map if they collide with the ball
+            collided_sprites = self.map_sprites.check_collsion_with_ball(self.ball)
+
+            # Handle each collided sprite
+            for sprite in collided_sprites:
+                # Obstacle Handler
+                if type(sprite) == Obstacle:
+                    print("Dead")
+
+                # Color Switcher Handler
+                elif type(sprite) == ColorSwitcher:
+                    # Remove the color switcher from the screen
+                    self.map_sprites.remove(sprite)
+
+                    # Switch the ball's color
+                    self.ball.switch_ball_color()
 
             # Draw current fps
             self.draw_fps(clock)
