@@ -1,5 +1,6 @@
 import pygame
 from ball import Ball
+from map_sprites import MapSprites
 from obstacle import Obstacle
 
 class MainWindow():
@@ -18,7 +19,11 @@ class MainWindow():
         # Create the ball
         self.ball = Ball(self.screen)
 
-        self.obs = Obstacle(self.screen)
+        # Create a group of sprites that will represent the map sprites
+        self.map_sprites = MapSprites()
+        
+        # Add the first obstacle
+        self.map_sprites.add(Obstacle(self.screen))
 
     def draw_fps(self, clock):
         # Get the current fps from the clock
@@ -57,14 +62,14 @@ class MainWindow():
                     if event.key == pygame.K_SPACE:
                         self.ball.clicked()
 
-            # Update the ball and get the obstacle y pos delta from it
-            obstacle_delta : float = self.ball.update()
+            # Update the ball and get the map pos delta from it
+            map_delta : float = self.ball.update()
 
             # Update the obstacle using the given obstacle delta
-            self.obs.update(obstacle_delta)
+            self.map_sprites.update(map_delta)
 
             # Check if the ball collides with the obstacle, if it is print dead
-            if self.obs.check_collsion_with_ball(self.ball):
+            if self.map_sprites.check_collsion_with_ball(self.ball):
                 print("Dead!")
 
             # Draw current fps
