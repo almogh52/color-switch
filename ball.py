@@ -1,4 +1,5 @@
 import pygame
+import utils
 
 class Ball(pygame.sprite.Sprite):
     BALL_BORDER = 5
@@ -20,10 +21,9 @@ class Ball(pygame.sprite.Sprite):
         self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, screen.get_rect().height * 2 / 3, self.width, self.width)
 
         # Load the ball image and resize it to it's size by the diameter + border
-        self.image = pygame.image.load("Ball.png")
-        self.image = pygame.transform.scale(self.image, (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
+        self.image = utils.load_and_resize_image("Ball.png", (self.BALL_DIAMETER + self.BALL_BORDER, self.BALL_DIAMETER + self.BALL_BORDER))
 
-        self.color = (0, 245, 255, 255)
+        self.color = utils.get_dominant_color_from_image("Ball.png")
 
         # Start the player's speed as 0
         self.speed = 0
