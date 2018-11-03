@@ -52,3 +52,14 @@ def compare_colors(color1, color2):
     color2_hue = get_hue_from_color(color2)
 
     return color1_hue == color2_hue
+
+def get_dominant_color_from_image(path):
+    # Load the image
+    image = Image.open(path)
+
+    # Get all the colors from the image (count, color) and order them by the count
+    image_colors = image.getcolors()
+    image_colors = sorted(image_colors, key=lambda x: x[0], reverse=True)
+
+    # Return the most used color
+    return image_colors[0][1]
