@@ -41,7 +41,7 @@ class Obstacle(pygame.sprite.Sprite):
             color = (0, 0, 0, 255)
 
         # If the color isn't black and isn't the ball's color, return true
-        if not utils.color_is_black(color) and color != ball.color:
+        if not utils.color_is_black(color) and not utils.compare_colors(color, ball.color):
             return True
 
         return False
