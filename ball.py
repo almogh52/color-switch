@@ -5,7 +5,7 @@ class Ball(pygame.sprite.Sprite):
     BALL_BORDER = 5
     BALL_DIAMETER = 25
 
-    MAX_SPEED = 8.5
+    MAX_SPEED = 7.6
     ACCELERATION = 0.35
 
     def __init__(self, screen):
