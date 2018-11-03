@@ -2,7 +2,7 @@ import pygame
 import utils
 
 class BaseSprite(pygame.sprite.Sprite):
-    def __init__(self, screen, image, size):
+    def __init__(self, screen, image, size, y_pos):
         # Call the super constructor
         pygame.sprite.Sprite.__init__(self)
 
@@ -14,7 +14,7 @@ class BaseSprite(pygame.sprite.Sprite):
         self.height = size[1]
 
         # Create the sprite's rect and set the sprite in the middle of the screen
-        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, 0, self.width, self.height)
+        self.rect = pygame.Rect(screen.get_rect().width / 2 - self.width / 2, y_pos, self.width, self.height)
 
         # If an image was sent, set it
         if image is not None:

@@ -8,8 +8,12 @@ class Obstacle(BaseSprite):
     ROTATE_DELTA = 1.5
 
     def __init__(self, screen):
-        # Call the super constructor with the screen, the obstacle's image and the size
-        BaseSprite.__init__(self, screen, "Resources/Obstacle.png", (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE))
+        # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
+        BaseSprite.__init__(self, 
+                            screen, 
+                            "Resources/Obstacle.png", 
+                            (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
+                            -self.OBSTACLE_SIZE)
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
