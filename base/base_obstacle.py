@@ -2,6 +2,8 @@ from base.base_sprite import BaseSprite
 import utils
 
 class BaseObstacle(BaseSprite):
+    OBSTACLE_SIZE = 0
+
     def get_collision_point(self, ball):
         return (0, 0)
 
