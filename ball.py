@@ -55,7 +55,7 @@ class Ball(BaseSprite):
         # If the new y pos is smaller than the middle of the screen (if the ball need to pass the middle), set the obstacle delta as the speed
         if self.rect.y - self.speed <= self.screen.get_rect().height / 2 - self.height / 2:
             # Move the obstacles by the current speed
-            map_delta = self.speed
+            map_delta = int(self.speed)
         else:
             # Change the y pos using the speed
             self.rect.y -= self.speed
