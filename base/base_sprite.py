@@ -27,7 +27,7 @@ class BaseSprite(pygame.sprite.Sprite):
 
     def update(self, delta):
         # Apply y pos delta to the image
-        self.rect.y = self.rect.y + delta
+        self.rect.y += delta
 
         # Draw the image onto the screen, the rect being used is the image rect with the center of the sprite
         self.screen.blit(self.image, self.rect)

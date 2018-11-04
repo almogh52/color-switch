@@ -47,7 +47,7 @@ class PlusObstacle(BaseObstacle):
         self.rotateAmount = (self.rotateAmount + self.angle_delta) % 360
 
         # Apply y pos delta to the image
-        self.rect.y = self.rect.y + delta
+        self.rect.y += delta
 
         # Draw the image onto the screen, the rect being used is the image rect with the center of the sprite
         self.screen.blit(image, image.get_rect(center=self.rect.center))
