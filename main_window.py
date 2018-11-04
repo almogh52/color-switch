@@ -9,7 +9,7 @@ import random
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
     MAX_FPS = 60
-    DISTANCE_BETWEEN_SPRITES = 100
+    DISTANCE_BETWEEN_SPRITES = 60
 
     def __init__(self, width, height):
         # Set the window size and pos
@@ -31,7 +31,7 @@ class MainWindow():
         self.map_sprites.add(circle_obstacle.CircleObstacle(self.screen, self.screen.get_rect().height * 0.5 / 8))
 
         # Save the last sprite on the map
-        self.last_sprite = ColorSwitcher(self.screen, self.screen.get_rect().height * 0.5 / 8 - self.DISTANCE_BETWEEN_SPRITES)
+        self.last_sprite = ColorSwitcher(self.screen, self.screen.get_rect().height * 0.5 / 8 - self.DISTANCE_BETWEEN_SPRITES - ColorSwitcher.SWITCHER_BORDER - ColorSwitcher.SWITCHER_DIAMETER)
 
         # Add the first color switcher
         self.map_sprites.add(self.last_sprite)
