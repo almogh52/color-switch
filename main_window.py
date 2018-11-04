@@ -1,15 +1,15 @@
 import pygame
 from ball import Ball
 from map_sprites import MapSprites
-from obstacles.circle_obstacle import CircleObstacle
-from obstacles.plus_obstacle import PlusObstacle
+from obstacles import *
 from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
+import random
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
     MAX_FPS = 60
-    DISTANCE_BETWEEN_SPRITES = 180
+    DISTANCE_BETWEEN_SPRITES = 100
 
     def __init__(self, width, height):
         # Set the window size and pos
@@ -28,7 +28,7 @@ class MainWindow():
         self.map_sprites = MapSprites()
         
         # Add the first obstacle
-        self.map_sprites.add(CircleObstacle(self.screen, self.screen.get_rect().height * 0.5 / 8))
+        self.map_sprites.add(circle_obstacle.CircleObstacle(self.screen, self.screen.get_rect().height * 0.5 / 8))
 
         # Save the last sprite on the map
         self.last_sprite = ColorSwitcher(self.screen, self.screen.get_rect().height * 0.5 / 8 - self.DISTANCE_BETWEEN_SPRITES)
@@ -50,6 +50,30 @@ class MainWindow():
         # Render the fps label and print it in the top left of the screen
         fps_label = my_font.render(f"FPS: {fps}", True, (255,255,255))
         self.screen.blit(fps_label, (2, 2))
+
+    def add_new_sprite(self, y_pos):
+        LIST_OF_OBSTACLE_TYPES = [
+            circle_obstacle.CircleObstacle,
+            plus_obstacle.PlusObstacle
+        ]
+
+        # If the last sprite is an obstacle
+        if issubclass(type(self.last_sprite), BaseObstacle):
+            # Randomize whatever should be another obstacle or a color switcher (1 to 3 chance)
+            if random.randint(0, 2) == 0:
+                # Choose a random obstacle
+                obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
+
+                self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
+            else:
+                # Add a color switcher
+                self.last_sprite = ColorSwitcher(self.screen, y_pos - ColorSwitcher.SWITCHER_BORDER - ColorSwitcher.SWITCHER_DIAMETER)
+        else:
+            # Choose a random obstacle
+            obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
+
+            self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
+
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
@@ -73,11 +97,9 @@ class MainWindow():
                     if event.key == pygame.K_SPACE:
                         self.ball.clicked()
 
-            print(self.last_sprite.rect.y)
-
             # If the last sprite is almost entring screen, add a new sprite
             if -100 <= self.last_sprite.rect.y <= 0:
-                self.last_sprite = PlusObstacle(self.screen, self.map_sprites.sprites()[-1].rect.y - self.DISTANCE_BETWEEN_SPRITES - 200)
+                self.add_new_sprite(self.last_sprite.rect.y - self.DISTANCE_BETWEEN_SPRITES)
                 self.map_sprites.add(self.last_sprite)
 
             # Update the ball and get the map pos delta from it
