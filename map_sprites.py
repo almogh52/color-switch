@@ -1,6 +1,15 @@
 import pygame
 
 class MapSprites(pygame.sprite.Group):
+    def remove_hidden_sprites(self, screen):
+        # Get the list of sprites
+        sprites = self.sprites()
+
+        # For each sprite check if it's hidden (y value bigger than screen width)
+        for sprite in sprites:
+            if sprite.rect.y >= screen.get_rect().height:
+                self.remove(sprite)
+
     def check_collsion_with_ball(self, ball):
         # Get the list of sprites
         sprites = self.sprites()

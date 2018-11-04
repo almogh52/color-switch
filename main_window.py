@@ -74,7 +74,6 @@ class MainWindow():
 
             self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
 
-
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
@@ -107,6 +106,9 @@ class MainWindow():
 
             # Update the obstacle using the given obstacle delta
             self.map_sprites.update(map_delta)
+
+            # Remove the hidden sprites from the screen
+            self.map_sprites.remove_hidden_sprites(self.screen)
 
             # Check for all sprites on the map if they collide with the ball
             collided_sprites = self.map_sprites.check_collsion_with_ball(self.ball)
