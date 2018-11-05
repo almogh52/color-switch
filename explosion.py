@@ -28,6 +28,8 @@ class BallExplosion(pygame.sprite.Sprite):
         (0, 152, 255),
         (179, 0, 255)
     ]
+    VELOCITY_MIN = 2
+    VELOCITY_MAX = 8
 
     def __init__(self, screen):
         # Call the super constructor
@@ -59,7 +61,7 @@ class BallExplosion(pygame.sprite.Sprite):
         self.color = random.choice(self.BALL_COLORS)
 
         # Generate a random velocity for the x and y axis
-        self.velocity = (random.randint(2, 8), random.randint(2, 8))
+        self.velocity = (random.randint(self.VELOCITY_MIN, self.VELOCITY_MAX), random.randint(self.VELOCITY_MIN, self.VELOCITY_MAX))
 
     def update(self):
         # Change the ball's position by the velocity
