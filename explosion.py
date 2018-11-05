@@ -18,7 +18,7 @@ class Explosion(pygame.sprite.Group):
             self.add(BallExplosion(screen))
 
 class BallExplosion(pygame.sprite.Sprite):
-    BALL_RADIUS = 3
+    BALL_RADIUS = 5
     BALL_COLORS = [
         (0, 255, 204),
         (255, 101, 0),
@@ -28,7 +28,7 @@ class BallExplosion(pygame.sprite.Sprite):
         (0, 152, 255),
         (179, 0, 255)
     ]
-    VELOCITY_MIN = 2
+    VELOCITY_MIN = 4
     VELOCITY_MAX = 8
 
     def __init__(self, screen):
