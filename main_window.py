@@ -54,11 +54,16 @@ class MainWindow():
             fps = "Calculating"
 
         # Get default font renderer
-        my_font = pygame.font.Font(None, 30)
+        my_font = pygame.font.Font("resources/Bonk.ttf", 20)
 
         # Render the fps label and print it in the top left of the screen
-        fps_label = my_font.render(f"FPS: {fps}", True, (255,255,255))
-        self.screen.blit(fps_label, (2, 2))
+        fps_label = my_font.render(f"FPS: {fps}", True, (0,255,0))
+
+        # Get the rect of the label and calculate it's position
+        fps_rect = fps_label.get_rect()
+        fps_pos = (self.screen.get_rect().width - fps_rect.width - 5, 2)
+
+        self.screen.blit(fps_label, fps_pos)
 
     def add_new_sprite(self, y_pos):
         LIST_OF_OBSTACLE_TYPES = [
@@ -74,7 +79,7 @@ class MainWindow():
                 obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
 
                 self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
-                if utils.random_bool():
+                if utils.random_bool(): # Randomize if a star should be drawn
                     self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
             else:
                 # Add a color switcher
@@ -84,7 +89,7 @@ class MainWindow():
             obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
 
             self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
-            if utils.random_bool():
+            if utils.random_bool(): # Randomize if a star should be drawn
                 self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
 
     def ball_destroyed(self):
@@ -137,6 +142,9 @@ class MainWindow():
                     # If the sprite is a subclass of the base obstacle, it means the ball should explode
                     if issubclass(type(sprite), BaseObstacle):
                         self.ball_destroyed()
+
+                    elif type(sprite) == Star:
+                        print("IDK")
 
                     # Color Switcher Handler
                     elif type(sprite) == ColorSwitcher:
