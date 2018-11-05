@@ -36,6 +36,9 @@ class MainWindow():
         # Add the first color switcher
         self.map_sprites.add(self.last_sprite)
 
+        # Set the ball as not destroyed
+        self.destroyed = False
+
     def draw_fps(self, clock):
         # Get the current fps from the clock
         fps = int(clock.get_fps())
@@ -74,6 +77,10 @@ class MainWindow():
 
             self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
 
+    def ball_destroyed(self):
+        # Set the ball as destroyed
+        self.destroyed = True
+
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
@@ -93,40 +100,43 @@ class MainWindow():
                 
                 # Key down event
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE and not self.destroyed:
                         self.ball.clicked()
 
-            # If the last sprite is almost entring screen, add a new sprite
-            if -100 <= self.last_sprite.rect.y <= 0:
-                self.add_new_sprite(self.last_sprite.rect.y - self.DISTANCE_BETWEEN_SPRITES)
-                self.map_sprites.add(self.last_sprite)
+            if not self.destroyed:
+                # If the last sprite is almost entring screen, add a new sprite
+                if -100 <= self.last_sprite.rect.y <= 0:
+                    self.add_new_sprite(self.last_sprite.rect.y - self.DISTANCE_BETWEEN_SPRITES)
+                    self.map_sprites.add(self.last_sprite)
 
-            # Update the ball and get the map pos delta from it
-            map_delta : float = self.ball.update()
+                # Update the ball and get the map pos delta from it
+                map_delta : float = self.ball.update()
 
-            # Update the obstacle using the given obstacle delta
-            self.map_sprites.update(map_delta)
+                # Update the obstacle using the given obstacle delta
+                self.map_sprites.update(map_delta)
 
-            # Remove the hidden sprites from the screen
-            self.map_sprites.remove_hidden_sprites(self.screen)
+                # Remove the hidden sprites from the screen
+                self.map_sprites.remove_hidden_sprites(self.screen)
 
-            # Check for all sprites on the map if they collide with the ball
-            collided_sprites = self.map_sprites.check_collsion_with_ball(self.ball)
+                # Check for all sprites on the map if they collide with the ball
+                collided_sprites = self.map_sprites.check_collsion_with_ball(self.ball)
 
-            # Handle each collided sprite
-            for sprite in collided_sprites:
-                # Obstacle Handler
-                # If the sprite is a subclass of the base obstacle, it means the ball should explode
-                if issubclass(type(sprite), BaseObstacle):
-                    print("Dead")
+                # Handle each collided sprite
+                for sprite in collided_sprites:
+                    # Obstacle Handler
+                    # If the sprite is a subclass of the base obstacle, it means the ball should explode
+                    if issubclass(type(sprite), BaseObstacle):
+                        self.ball_destroyed()
 
-                # Color Switcher Handler
-                elif type(sprite) == ColorSwitcher:
-                    # Remove the color switcher from the screen
-                    self.map_sprites.remove(sprite)
+                    # Color Switcher Handler
+                    elif type(sprite) == ColorSwitcher:
+                        # Remove the color switcher from the screen
+                        self.map_sprites.remove(sprite)
 
-                    # Switch the ball's color
-                    self.ball.switch_ball_color()
+                        # Switch the ball's color
+                        self.ball.switch_ball_color()
+            else:
+                pass
 
             # Draw current fps
             self.draw_fps(clock)
