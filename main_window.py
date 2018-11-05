@@ -5,6 +5,7 @@ from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
 from explosion import Explosion
 from star import Star
+from score import Score
 import pygame
 import random
 import utils
@@ -44,6 +45,9 @@ class MainWindow():
 
         # Prepare an explosion for the ball explosion
         self.explosion = Explosion(self.screen)
+
+        # Create the score sprite
+        self.score = Score(self.screen)
 
     def draw_fps(self, clock):
         # Get the current fps from the clock
@@ -143,8 +147,13 @@ class MainWindow():
                     if issubclass(type(sprite), BaseObstacle):
                         self.ball_destroyed()
 
+                    # Star handler
                     elif type(sprite) == Star:
-                        print("IDK")
+                        # Increase the score
+                        self.score.increase()
+
+                        # Remove the star from the map
+                        self.map_sprites.remove(sprite)
 
                     # Color Switcher Handler
                     elif type(sprite) == ColorSwitcher:
@@ -162,6 +171,9 @@ class MainWindow():
 
             # Draw current fps
             self.draw_fps(clock)
+
+            # Update the score sprite
+            self.score.update()
 
             # Update the display each frame
             pygame.display.update()
