@@ -2,6 +2,21 @@ import pygame
 import random
 import utils
 
+class Explosion(pygame.sprite.Group):
+    MIN_BALLS = 10
+    MAX_BALLS = 15
+
+    def __init__(self, screen):
+        # Call the super constructor
+        pygame.sprite.Group.__init__(self)
+
+        # Randomize the number of ball explosion
+        num_of_balls = random.randint(self.MIN_BALLS, self.MAX_BALLS)
+
+        # Create explosion balls by the amount of balls
+        for _ in range(num_of_balls):
+            self.add(BallExplosion(screen))
+
 class BallExplosion(pygame.sprite.Sprite):
     BALL_RADIUS = 3
     BALL_COLORS = [
