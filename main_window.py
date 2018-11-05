@@ -4,6 +4,7 @@ from map_sprites import MapSprites
 from obstacles import *
 from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
+from explosion import Explosion
 import random
 
 class MainWindow():
@@ -38,6 +39,9 @@ class MainWindow():
 
         # Set the ball as not destroyed
         self.destroyed = False
+
+        # Prepare an explosion for the ball explosion
+        self.explosion = Explosion(self.screen)
 
     def draw_fps(self, clock):
         # Get the current fps from the clock
@@ -136,7 +140,11 @@ class MainWindow():
                         # Switch the ball's color
                         self.ball.switch_ball_color()
             else:
-                pass
+                # Update the map sprites with no movement
+                self.map_sprites.update(0)
+
+                # Update the ball explosion animation
+                self.explosion.update()
 
             # Draw current fps
             self.draw_fps(clock)
