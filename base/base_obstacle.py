@@ -1,4 +1,5 @@
 from base.base_sprite import BaseSprite
+from star import Star
 import utils
 
 class BaseObstacle(BaseSprite):
@@ -6,6 +7,9 @@ class BaseObstacle(BaseSprite):
 
     def get_collision_point(self, ball):
         return (0, 0)
+
+    def position_for_star(self):
+        return self.rect.y + (self.height / 2 - Star.STAR_SIZE / 2)
 
     def check_collsion_with_ball(self, ball):
         # Get the collision point of the obstacle and the ball

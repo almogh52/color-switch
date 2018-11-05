@@ -1,11 +1,13 @@
-import pygame
 from ball import Ball
 from map_sprites import MapSprites
 from obstacles import *
 from color_switcher import ColorSwitcher
 from base.base_obstacle import BaseObstacle
 from explosion import Explosion
+from star import Star
+import pygame
 import random
+import utils
 
 class MainWindow():
     BACKGROUND_COLOR = (35, 35, 35)
@@ -72,6 +74,8 @@ class MainWindow():
                 obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
 
                 self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
+                if utils.random_bool():
+                    self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
             else:
                 # Add a color switcher
                 self.last_sprite = ColorSwitcher(self.screen, y_pos - ColorSwitcher.SWITCHER_BORDER - ColorSwitcher.SWITCHER_DIAMETER)
@@ -80,6 +84,8 @@ class MainWindow():
             obstacle_type = random.choice(LIST_OF_OBSTACLE_TYPES)
 
             self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
+            if utils.random_bool():
+                self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
 
     def ball_destroyed(self):
         # Set the ball as destroyed
