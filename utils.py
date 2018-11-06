@@ -39,7 +39,7 @@ def color_is_black(color):
                                     color[2] / 255)
 
     # Check if the saturation of the color is low so it's black
-    return hsv_color[1] in range(5)
+    return int(hsv_color[1] * 100) in range(5)
 
 def get_hue_from_color(color):
     # Convert the color to an hsv color to get it's hue
