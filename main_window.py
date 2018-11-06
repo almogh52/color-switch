@@ -84,7 +84,7 @@ class MainWindow():
 
                 self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
                 if utils.random_bool(): # Randomize if a star should be drawn
-                    self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
+                    self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star(), self.score.increase))
             else:
                 # Add a color switcher
                 self.last_sprite = ColorSwitcher(self.screen, y_pos - ColorSwitcher.SWITCHER_BORDER - ColorSwitcher.SWITCHER_DIAMETER)
@@ -94,7 +94,7 @@ class MainWindow():
 
             self.last_sprite = obstacle_type(self.screen, y_pos - obstacle_type.OBSTACLE_SIZE)
             if utils.random_bool(): # Randomize if a star should be drawn
-                self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star()))
+                self.map_sprites.add(Star(self.screen, self.last_sprite.position_for_star(), self.score.increase))
 
     def ball_destroyed(self):
         # Set the ball as destroyed
@@ -148,12 +148,9 @@ class MainWindow():
                         self.ball_destroyed()
 
                     # Star handler
-                    elif type(sprite) == Star:
-                        # Increase the score
-                        self.score.increase()
-
-                        # Remove the star from the map
-                        self.map_sprites.remove(sprite)
+                    elif type(sprite) == Star and not sprite.picked:
+                        # Set the star to be picked up (start the pickup animation)
+                        sprite.pick()
 
                     # Color Switcher Handler
                     elif type(sprite) == ColorSwitcher:
