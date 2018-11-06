@@ -1,5 +1,6 @@
 from base.base_sprite import BaseSprite
 import math
+import pygame
 
 class Star(BaseSprite):
     SCORE_BASE_POS = 5
@@ -46,6 +47,12 @@ class Star(BaseSprite):
         else:
             # Change speed by the accelration for each axis
             self.speed = (self.speed[0] + self.accleration[0], self.speed[1] + self.accleration[1])
+
+            # Get the animation precentage (currect frame / total frame)
+            precentage = self.time / self.ANIMATION_FRAMES
+
+            # Fill the image with yellow by the animation frame
+            self.image.fill((255, 211 + precentage * (255 - 211), precentage * 255), None, pygame.BLEND_MIN)
 
             # Change location by the speeds
             self.rect.x -= self.speed[0]
