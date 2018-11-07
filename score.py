@@ -6,6 +6,7 @@ class Score(pygame.sprite.Sprite):
     BASE_POS = 5
     DISTANCE = 10
     COLOR = (255, 211, 0)
+    Y_OFFSET = 3
 
     def __init__(self, screen):
         # Call the super constructor
@@ -31,7 +32,7 @@ class Score(pygame.sprite.Sprite):
         # Render the score label and blit it to the screen
         score_label = self.font.render(str(self.score), True, self.COLOR)
         score_rect = score_label.get_rect(x = self.BASE_POS + image_rect.width + self.DISTANCE, 
-                                        y = self.BASE_POS + image_rect.height / 2 - score_label.get_rect().width)
+                                        y = self.BASE_POS + image_rect.height / 2 - score_label.get_rect().height / 2 + self.Y_OFFSET)
         self.screen.blit(score_label, score_rect)
 
     def increase(self):
