@@ -9,14 +9,14 @@ import os
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 class Menu(Window):
-    TITLE_SIZE = (650, 162)
-    TITLE_Y = 15
+    TITLE_SIZE = (900, 225)
+    TITLE_Y = 35
 
     PLAY_BUTTON_SIZE = (150, 150)
-    PLAY_BUTTON_Y = 226
+    PLAY_BUTTON_Y = 326
 
-    CIRCLE_1_Y = 169
-    CIRCLE_2_Y = 200
+    CIRCLE_1_Y = 269
+    CIRCLE_2_Y = 300
     CIRCLE_2_SIZE = 200
 
     def __init__(self, width, height):
@@ -29,6 +29,9 @@ class Menu(Window):
         # Create the window
         self.screen = pygame.display.set_mode(self.rect.size)
 
+        # Set the game's name
+        pygame.display.set_caption("Color Switch")
+
         # Create the title
         self.title_sprite = BaseSprite(self.screen,
                                        "resources/title.png",
@@ -37,16 +40,34 @@ class Menu(Window):
 
         # Create the play button
         self.play_btn = BaseSprite(self.screen,
-                              "resources/play.png",
-                              self.PLAY_BUTTON_SIZE,
-                              self.PLAY_BUTTON_Y)
+                                   "resources/play.png",
+                                   self.PLAY_BUTTON_SIZE,
+                                   self.PLAY_BUTTON_Y)
+
+        self.help_btn = BaseSprite(self.screen,
+                                   "resources/help.png",
+                                   (187, 75),
+                                   600)
 
         # Create a group of sprites with the sprites
-        self.sprites = pygame.sprite.Group(self.play_btn, self.title_sprite)
+        self.sprites = pygame.sprite.Group(self.play_btn, self.title_sprite, self.help_btn)
 
         # Add the circles for the outside of the play button
         self.sprites.add(CircleObstacle(self.screen, self.CIRCLE_1_Y, angle_delta=1))
         self.sprites.add(CircleObstacle(self.screen, self.CIRCLE_2_Y, size=self.CIRCLE_2_SIZE, angle_delta=-1))
+
+    def draw_credit(self):
+        # Get default font renderer
+        my_font = pygame.font.Font("resources/Bonk.ttf", 24)
+
+        # Render the credit label
+        credit_label = my_font.render("© 2018 Almog Hamdani", True, (255,255,255))
+
+        # Get the rect of the label and calculate it's position
+        credit_rect = credit_label.get_rect()
+        credit_pos = (self.screen.get_rect().width / 2 - credit_rect.width / 2, self.screen.get_rect().height - credit_rect.height - 10)
+
+        self.screen.blit(credit_label, credit_pos)
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
@@ -70,6 +91,8 @@ class Menu(Window):
                     # If the play button was clicked, run the game
                     if self.play_btn.rect.collidepoint(event.pos):
                         MainWindow(self.screen).run()
+
+            self.draw_credit()
 
             # Update all the sprites
             self.sprites.update()
