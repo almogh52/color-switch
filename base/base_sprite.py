@@ -25,7 +25,7 @@ class BaseSprite(pygame.sprite.Sprite):
         # Try to get the overlap point, if succeeded (point isn't None), return true 
         return utils.get_overlap_point(self.image, self.rect, ball.image, ball.rect) != None
 
-    def update(self, delta):
+    def update(self, delta=0):
         # Apply y pos delta to the image
         self.rect.y += delta
 

@@ -1,3 +1,4 @@
+from base.base_window import Window
 from ball import Ball
 from map_sprites import MapSprites
 from obstacles import *
@@ -10,20 +11,11 @@ import pygame
 import random
 import utils
 
-class MainWindow():
-    BACKGROUND_COLOR = (35, 35, 35)
-    MAX_FPS = 60
+class MainWindow(Window):
     DISTANCE_BETWEEN_SPRITES = 60
 
-    def __init__(self, width, height):
-        # Set the window size and pos
-        self.rect = pygame.Rect(0, 0, width, height)
-
-        # Initialize the pygame library
-        pygame.init()
-
-        # Create the window
-        self.screen = pygame.display.set_mode(self.rect.size)
+    def __init__(self, screen):
+        self.screen = screen
 
         # Create the ball
         self.ball = Ball(self.screen)
@@ -180,5 +172,3 @@ class MainWindow():
 
         # Quit app after the user choose to quit
         pygame.quit()
-
-MainWindow(800, 600).run()
