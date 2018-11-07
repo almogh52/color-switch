@@ -42,23 +42,24 @@ class Ball(BaseSprite):
         # Get the most used color in the image and use it as the ball's color
         self.color = utils.get_dominant_color_from_image(self.image_file)
 
-    def clicked(self):
+    def jump(self):
         # Set speed to max speed
         self.speed = self.MAX_SPEED
 
-    def update(self):
+    def update(self, move=True):
         map_delta = 0
 
-        # Change speed according to the acceleration
-        self.speed -= self.ACCELERATION
+        if move:
+            # Change speed according to the acceleration
+            self.speed -= self.ACCELERATION
 
-        # If the new y pos is smaller than the middle of the screen (if the ball need to pass the middle), set the obstacle delta as the speed
-        if self.rect.y - self.speed <= self.screen.get_rect().height / 2 - self.height / 2:
-            # Move the obstacles by the current speed
-            map_delta = int(self.speed)
-        else:
-            # Change the y pos using the speed
-            self.rect.y -= self.speed
+            # If the new y pos is smaller than the middle of the screen (if the ball need to pass the middle), set the obstacle delta as the speed
+            if self.rect.y - self.speed <= self.screen.get_rect().height / 2 - self.height / 2:
+                # Move the obstacles by the current speed
+                map_delta = int(self.speed)
+            else:
+                # Change the y pos using the speed
+                self.rect.y -= self.speed
 
         # Draw the image on the screen
         self.screen.blit(self.image, self.rect)

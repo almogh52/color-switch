@@ -41,6 +41,9 @@ class MainWindow(Window):
         # Create the score sprite
         self.score = Score(self.screen)
 
+        # Set the game as not started yet until the user clickes the jump button
+        self.startedPlaying = False
+
     def draw_fps(self, clock):
         # Get the current fps from the clock
         fps = int(clock.get_fps())
@@ -112,7 +115,9 @@ class MainWindow(Window):
                 # Key down event
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE and not self.destroyed:
-                        self.ball.clicked()
+                        # Set the game as playing and make the ball jump
+                        self.startedPlaying = True
+                        self.ball.jump()
 
             if not self.destroyed:
                 # If the last sprite is almost entring screen, add a new sprite
@@ -121,7 +126,7 @@ class MainWindow(Window):
                     self.map_sprites.add(self.last_sprite)
 
                 # Update the ball and get the map pos delta from it
-                map_delta : float = self.ball.update()
+                map_delta : float = self.ball.update(self.startedPlaying)
 
                 # Update the obstacle using the given obstacle delta
                 self.map_sprites.update(map_delta)
