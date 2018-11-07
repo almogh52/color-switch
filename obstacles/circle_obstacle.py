@@ -7,19 +7,23 @@ class CircleObstacle(BaseObstacle):
     OBSTACLE_SIZE = 260
     ROTATE_DELTA = 1.5
 
-    def __init__(self, screen, y_pos):
+    def __init__(self, screen, y_pos, size=OBSTACLE_SIZE, angle_delta=0):
         # Call the super constructor with the screen, the obstacle's image, the size and the initial y pos
         BaseSprite.__init__(self, 
                             screen, 
                             "resources/obstacles/circle.png", 
-                            (self.OBSTACLE_SIZE, self.OBSTACLE_SIZE),
+                            (size, size),
                             y_pos)
         
-        # Get random bool to pick the rotation direction
-        if utils.random_bool():
-            self.angle_delta = self.ROTATE_DELTA
+        # If an angle delta was sent, use it
+        if angle_delta != 0:
+            self.angle_delta = angle_delta
         else:
-            self.angle_delta = -self.ROTATE_DELTA
+            # Get random bool to pick the rotation direction
+            if utils.random_bool():
+                self.angle_delta = self.ROTATE_DELTA
+            else:
+                self.angle_delta = -self.ROTATE_DELTA
 
         # Set the rotation amount as 0
         self.rotateAmount = 0
@@ -31,7 +35,7 @@ class CircleObstacle(BaseObstacle):
         # Get the collision point of the obstacle and the ball
         return utils.get_overlap_point(image, image.get_rect(center=self.rect.center), ball.image, ball.rect)
 
-    def update(self, delta):
+    def update(self, delta=0):
         # Rotate the original image by the rotate amount
         image = pygame.transform.rotozoom(self.image, self.rotateAmount, 1)
 

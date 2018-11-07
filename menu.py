@@ -1,11 +1,23 @@
 from base.base_window import Window
 from base.base_sprite import BaseSprite
+from obstacles.circle_obstacle import CircleObstacle
 from main_window import MainWindow
 import pygame
+import os
+
+# Set the screen to be centered
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 class Menu(Window):
+    TITLE_SIZE = (650, 162)
+    TITLE_Y = 15
+
     PLAY_BUTTON_SIZE = (150, 150)
-    PLAY_BUTTON_Y = 75
+    PLAY_BUTTON_Y = 226
+
+    CIRCLE_1_Y = 169
+    CIRCLE_2_Y = 200
+    CIRCLE_2_SIZE = 200
 
     def __init__(self, width, height):
         # Set the window size and pos
@@ -17,11 +29,24 @@ class Menu(Window):
         # Create the window
         self.screen = pygame.display.set_mode(self.rect.size)
 
+        # Create the title
+        self.title_sprite = BaseSprite(self.screen,
+                                       "resources/title.png",
+                                       self.TITLE_SIZE,
+                                       self.TITLE_Y)
+
         # Create the play button
         self.play_btn = BaseSprite(self.screen,
                               "resources/play.png",
                               self.PLAY_BUTTON_SIZE,
                               self.PLAY_BUTTON_Y)
+
+        # Create a group of sprites with the sprites
+        self.sprites = pygame.sprite.Group(self.play_btn, self.title_sprite)
+
+        # Add the circles for the outside of the play button
+        self.sprites.add(CircleObstacle(self.screen, self.CIRCLE_1_Y, angle_delta=1))
+        self.sprites.add(CircleObstacle(self.screen, self.CIRCLE_2_Y, size=self.CIRCLE_2_SIZE, angle_delta=-1))
 
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
@@ -46,8 +71,8 @@ class Menu(Window):
                     if self.play_btn.rect.collidepoint(event.pos):
                         MainWindow(self.screen).run()
 
-            # Update the play button
-            self.play_btn.update()
+            # Update all the sprites
+            self.sprites.update()
 
             # Update the display each frame
             pygame.display.update()
@@ -55,4 +80,4 @@ class Menu(Window):
             # Limit to 60 fps
             clock.tick(self.MAX_FPS)
 
-Menu(800, 600).run()
+Menu(1150, 800).run()

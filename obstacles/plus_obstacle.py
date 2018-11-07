@@ -39,7 +39,7 @@ class PlusObstacle(BaseObstacle):
         # Get the collision point of the obstacle and the ball
         return utils.get_overlap_point(image, image.get_rect(center=self.rect.center), ball.image, ball.rect)
 
-    def update(self, delta):
+    def update(self, delta=0):
         # Rotate the original image by the rotate amount
         image = pygame.transform.rotozoom(self.image, self.rotateAmount, 1)
 
