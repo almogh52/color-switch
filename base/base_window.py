@@ -1,3 +1,5 @@
+import pygame
+
 class Window(object):
     BACKGROUND_COLOR = (35, 35, 35)
     MAX_FPS = 60
