@@ -7,6 +7,8 @@ from base.base_obstacle import BaseObstacle
 from explosion import Explosion
 from star import Star
 from score import Score
+from tkinter import *
+from tkinter import messagebox
 import pygame
 import random
 import utils
@@ -95,6 +97,8 @@ class MainWindow(Window):
         # Set the ball as destroyed
         self.destroyed = True
 
+        self.exploding_frames = 140
+
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
@@ -166,6 +170,11 @@ class MainWindow(Window):
 
                 # Update the ball explosion animation
                 self.explosion.update()
+
+                self.exploding_frames -= 1
+
+                if self.exploding_frames == 0:
+                    return True
 
             # Draw current fps
             self.draw_fps(clock)
