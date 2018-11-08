@@ -156,6 +156,10 @@ class MainWindow(Window):
 
                         # Switch the ball's color
                         self.ball.switch_ball_color()
+
+                # If the ball is out of the screen, set it as destroyed and start animation
+                if self.ball.rect.y >= self.screen.get_rect().height:
+                    self.destroyed = True
             else:
                 # Update the map sprites with no movement
                 self.map_sprites.update(0)
