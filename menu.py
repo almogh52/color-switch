@@ -2,6 +2,7 @@ from base.base_window import Window
 from base.base_sprite import BaseSprite
 from obstacles.circle_obstacle import CircleObstacle
 from main_window import MainWindow
+from help import Help
 import pygame
 import os
 
@@ -10,13 +11,13 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 class Menu(Window):
     TITLE_SIZE = (900, 225)
-    TITLE_Y = 35
+    TITLE_Y = 0
 
     PLAY_BUTTON_SIZE = (150, 150)
-    PLAY_BUTTON_Y = 326
+    PLAY_BUTTON_Y = 281
 
-    CIRCLE_1_Y = 269
-    CIRCLE_2_Y = 300
+    CIRCLE_1_Y = 224
+    CIRCLE_2_Y = 255
     CIRCLE_2_SIZE = 200
 
     def __init__(self, width, height):
@@ -47,7 +48,7 @@ class Menu(Window):
         self.help_btn = BaseSprite(self.screen,
                                    "resources/help.png",
                                    (187, 75),
-                                   600)
+                                   520)
 
         # Create a group of sprites with the sprites
         self.sprites = pygame.sprite.Group(self.play_btn, self.title_sprite, self.help_btn)
@@ -103,4 +104,4 @@ class Menu(Window):
             # Limit to 60 fps
             clock.tick(self.MAX_FPS)
 
-Menu(1150, 800).run()
+Menu(1150, 680).run()
