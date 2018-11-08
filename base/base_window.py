@@ -7,6 +7,9 @@ class Window(object):
     def __init__(self, screen):
         self.screen = screen
 
+        # Create a default empty sprites group
+        self.sprites = pygame.sprite.Group()
+
     def run(self):
         # Create a clock that will be used as a framerate monitor and limiter
         clock = pygame.time.Clock()
@@ -23,6 +26,8 @@ class Window(object):
                 # Quit Event
                 if event.type == pygame.QUIT:
                     app_running = False
+
+            self.sprites.update()
 
             # Update the display each frame
             pygame.display.update()

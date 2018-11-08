@@ -46,7 +46,7 @@ class Menu(Window):
                                    self.PLAY_BUTTON_Y)
 
         self.help_btn = BaseSprite(self.screen,
-                                   "resources/help.png",
+                                   "resources/help_btn.png",
                                    (187, 75),
                                    520)
 
@@ -93,9 +93,12 @@ class Menu(Window):
                     if self.play_btn.rect.collidepoint(event.pos):
                         if not MainWindow(self.screen).run():
                             return
+
+                    # If the help button was clicked, run the game
                     elif self.help_btn.rect.collidepoint(event.pos):
                         Help(self.screen).run()
 
+            # Draw the credit in the menu
             self.draw_credit()
 
             # Update all the sprites
