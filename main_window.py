@@ -163,7 +163,7 @@ class MainWindow(Window):
 
                 # If the ball is out of the screen, set it as destroyed and start animation
                 if self.ball.rect.y >= self.screen.get_rect().height:
-                    self.destroyed = True
+                    self.ball_destroyed()
             else:
                 # Update the map sprites with no movement
                 self.map_sprites.update(0)

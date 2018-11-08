@@ -91,7 +91,8 @@ class Menu(Window):
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # If the play button was clicked, run the game
                     if self.play_btn.rect.collidepoint(event.pos):
-                        MainWindow(self.screen).run()
+                        if not MainWindow(self.screen).run():
+                            return
                     elif self.help_btn.rect.collidepoint(event.pos):
                         Help(self.screen).run()
 
