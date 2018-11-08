@@ -92,6 +92,8 @@ class Menu(Window):
                     # If the play button was clicked, run the game
                     if self.play_btn.rect.collidepoint(event.pos):
                         MainWindow(self.screen).run()
+                    elif self.help_btn.rect.collidepoint(event.pos):
+                        Help(self.screen).run()
 
             self.draw_credit()
 
